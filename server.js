@@ -9,7 +9,7 @@ const app = express();
 console.log("Hello1")
 
 app.use(cors({
-    origin: "*",
+    origin: "https://cosminnox-web-frontend.vercel.app",
     methods: ["GET", "POST"], 
     allowedHeaders: ["Content-Type"], 
   }));
