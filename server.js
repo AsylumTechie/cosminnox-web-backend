@@ -2,13 +2,17 @@ import dotenv from "dotenv";
 import express, { json } from "express";
 import { connect } from "mongoose";
 import cors from "cors";
-import Contact from "./model/Contact.js";
+import authRoutes from "./routes/auth.js";
+import courseRoutes from "./routes/courses.js";
+import otpRoutes from "./routes/otp.js"
+import contachRoutes from "./routes/contact.js"
 
 const app = express();
 
 app.use(
   cors({
-    origin: "https://cosminnox-web-frontend.vercel.app",
+    // origin: "https://cosminnox-web-frontend.vercel.app",
+    origin: "*",
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
   })
@@ -21,27 +25,12 @@ connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.error("MongoDB Connection Error:", err));
 
-app.post("/", async (req, res) => {
-  try {
-    const { name, email, phone, message } = req.body;
 
-    const newContact = new Contact({ name, email, phone, message });
-    await newContact.save();
+app.use("/api/auth", authRoutes);
+app.use("/api/courses", courseRoutes);
+app.use("/api/otp", otpRoutes);
+app.use("/api/contact", contachRoutes)
 
-    res
-      .status(201)
-      .json({ success: true, message: "Message received successfully!" });
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ success: false, message: "Server Error", error: error.message });
-  }
-});
-
-// app.get("/", (req, res) => {
-//   res.send("Contact Form Backend Running");
-// });
 
 const PORT = process.env.PORT || 5009;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
