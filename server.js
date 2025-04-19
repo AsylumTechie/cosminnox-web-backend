@@ -14,9 +14,9 @@ const app = express();
 
 app.use(
   cors({
-    // origin: "https://cosminnox-web-frontend.vercel.app",
-    // origin: "http://localhost:3000",
-    origin: "*",
+    origin: "https://cosminnox-web-frontend.vercel.app",
+    // // origin: "http://localhost:3000",
+    // origin: "*",
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
   })
