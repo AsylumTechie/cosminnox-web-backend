@@ -25,10 +25,6 @@ export const sendOtp = async (req, res) => {
       text: `Hi ${name},\n\nYour OTP is: ${otp}\n\nThanks for using COSMINNOX.`,
     });
 
-    console.log("Email sent:", result);
-
-    console.log("Sending OTP to:", email, "OTP:", otp);
-
     res.json({ success: true, message: 'OTP sent successfully!' });
   } catch (error) {
     console.error('Resend Email Error:', error?.message || error);
